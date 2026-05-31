@@ -1,0 +1,19 @@
+version: '3.8'
+
+services:
+  fraud-pipeline:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: fraud_analytics_worker
+    environment:
+      - KAGGLE_USERNAME=${KAGGLE_USERNAME}
+      - KAGGLE_KEY=${KAGGLE_KEY}
+      - PYTHONUNBUFFERED=1
+    volumes:
+      # Mount host directories to preserve models, logs, processed data, and visual figures
+      - ./data:/app/data
+      - ./models:/app/models
+      - ./logs:/app/logs
+      - ./reports:/app/reports
+    command: python src/data/ingest.py

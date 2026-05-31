@@ -1,0 +1,39 @@
+# Global Project Configurations
+
+project_name: "Fraud-Analytics-pipeline"
+
+data:
+  kaggle_dataset_slug: "mlg-ulb/creditcardfraud"
+  raw_dir: "data/raw"
+  processed_dir: "data/processed"
+  models_dir: "models"
+  reports_dir: "reports/figures"
+  random_state: 42
+  
+split:
+  train_ratio: 0.70
+  val_ratio: 0.15
+  test_ratio: 0.15
+  stratify_col: "Class"
+
+preprocessing:
+  missing_value_strategy: "knn"  # 'knn' or 'mice'
+  knn_neighbors: 5
+  anomaly_contamination: 0.01    # Expected proportion of outliers in Isolation Forest
+  outlier_random_state: 42
+
+features:
+  cyclical_encoding: true
+  target_encoding_smoothing: 10.0
+  kernel_pca_components: 5
+  resampling_strategy: "smote_tomek"  # 'smote_tomek', 'adasyn', or None
+
+models:
+  optuna:
+    n_trials: 25
+    timeout_seconds: 600
+    random_state: 42
+  
+  stacking:
+    meta_learner: "logistic_regression"
+    cv_folds: 5

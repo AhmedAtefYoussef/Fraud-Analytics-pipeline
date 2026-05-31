@@ -1,0 +1,30 @@
+# Python local caches
+__pycache__/
+*.py[cod]
+*$py.class
+.ipynb_checkpoints/
+
+# Byte-compiled / optimized / DLL files
+*.pyc
+*.pyo
+*.pyd
+
+# Local environment configuration
+.env
+.env.*
+
+# Datasets (large CSV files)
+data/
+
+# Serialization binary model weights
+models/
+
+# Logging directories
+logs/
+*.log
+
+# Figure reports and generated outputs
+reports/figures/*.png
+reports/figures/*.html
+.pytest_cache/
+.mypy_cache/
