@@ -13,18 +13,17 @@ __pycache__/
 .env
 .env.*
 
-# Datasets (large CSV files)
-data/
+# Datasets (large CSV files) - Anchored to root
+/data/
 
-# Serialization binary model weights
-models/
+# Serialization binary model weights - Anchored to root
+/models/
 
-# Logging directories
-logs/
+# Logging directories - Anchored to root
+/logs/
 *.log
 
-# Figure reports and generated outputs
-reports/figures/*.png
-reports/figures/*.html
+# Figure reports and generated outputs - Anchored to root
+/reports/
 .pytest_cache/
 .mypy_cache/
