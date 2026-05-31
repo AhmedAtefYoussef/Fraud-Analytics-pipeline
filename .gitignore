@@ -24,6 +24,6 @@ __pycache__/
 *.log
 
 # Figure reports and generated outputs - Anchored to root
-/reports/
+# /reports/
 .pytest_cache/
 .mypy_cache/
