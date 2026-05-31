@@ -2,7 +2,12 @@ import os
 import logging
 from typing import Optional
 
-def setup_logger(name: str = "fraud_pipeline", log_file: str = "logs/pipeline.log", level: int = logging.INFO) -> logging.Logger:
+
+def setup_logger(
+    name: str = "fraud_pipeline",
+    log_file: str = "logs/pipeline.log",
+    level: int = logging.INFO,
+) -> logging.Logger:
     """Sets up a centralized thread-safe logger with console and file handlers.
 
     Args:
@@ -14,17 +19,17 @@ def setup_logger(name: str = "fraud_pipeline", log_file: str = "logs/pipeline.lo
         A configured logging.Logger instance.
     """
     logger = logging.getLogger(name)
-    
+
     # Avoid duplicate handlers if the logger has already been configured
     if logger.handlers:
         return logger
 
     logger.setLevel(level)
-    
+
     # Format pattern
     formatter = logging.Formatter(
         "[%(asctime)s] %(levelname)s [%(name)s:%(filename)s:%(lineno)d] - %(message)s",
-        datefmt="%Y-%m-%d %H:%M:%S"
+        datefmt="%Y-%m-%d %H:%M:%S",
     )
 
     # Ensure log directory exists
@@ -49,6 +54,7 @@ def setup_logger(name: str = "fraud_pipeline", log_file: str = "logs/pipeline.lo
     logger.addHandler(console_handler)
 
     return logger
+
 
 # Primary instance for import
 logger = setup_logger()
