@@ -1,7 +1,7 @@
 import os
 import pandas as pd
 import numpy as np
-from typing import Tuple, Optional
+from typing import Tuple, Optional, Dict
 from sklearn.decomposition import PCA
 from sklearn.model_selection import StratifiedKFold
 from imblearn.combine import SMOTETomek
@@ -25,7 +25,7 @@ class FeatureEngineer:
         # Transformers to fit
         self.pca = PCA(n_components=kpca_components)
         self.global_target_mean = 0.0
-        self.hour_target_map = {}
+        self.hour_target_map: Dict[int, float] = {}
         self.fitted = False
 
     def _bin_time(self, X: pd.DataFrame) -> pd.Series:

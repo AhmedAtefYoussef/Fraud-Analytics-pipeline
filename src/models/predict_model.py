@@ -6,17 +6,12 @@ import numpy as np
 from typing import Union, Dict, Any, List
 
 # Import and dynamically register the stacking ensemble classes for pickle compatibility
-from src.models.train_model import (
-    StackingEnsemble,
-    PyTorchTabularClassifier,
-    TabularResNet,
-    ResNetBlock,
-)
+from src.models.train_model import StackingEnsemble, PyTorchTabularClassifier, TabularResNet, ResNetBlock  # type: ignore[attr-defined] # fmt: skip
 
-sys.modules["__main__"].StackingEnsemble = StackingEnsemble
-sys.modules["__main__"].PyTorchTabularClassifier = PyTorchTabularClassifier
-sys.modules["__main__"].TabularResNet = TabularResNet
-sys.modules["__main__"].ResNetBlock = ResNetBlock
+setattr(sys.modules["__main__"], "StackingEnsemble", StackingEnsemble)
+setattr(sys.modules["__main__"], "PyTorchTabularClassifier", PyTorchTabularClassifier)
+setattr(sys.modules["__main__"], "TabularResNet", TabularResNet)
+setattr(sys.modules["__main__"], "ResNetBlock", ResNetBlock)
 
 from src.utils.logger import logger
 from src.utils.config import config

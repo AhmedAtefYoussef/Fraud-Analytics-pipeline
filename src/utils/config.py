@@ -51,6 +51,7 @@ class Config:
 
 
 # Global configuration instance
+config: Any = None
 try:
     config = Config()
 except Exception:

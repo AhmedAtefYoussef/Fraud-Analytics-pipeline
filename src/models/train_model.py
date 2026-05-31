@@ -135,7 +135,7 @@ class PyTorchTabularClassifier(BaseEstimator, ClassifierMixin):
 
         # Validation setup
         best_loss = float("inf")
-        best_weights = None
+        best_weights: Optional[Dict[str, torch.Tensor]] = None
         patience_counter = 0
 
         eval_loader = None
@@ -191,9 +191,10 @@ class PyTorchTabularClassifier(BaseEstimator, ClassifierMixin):
                         logger.info(
                             f"Early stopping at epoch {epoch}. Restoring best weights."
                         )
-                        self.model.load_state_dict(
-                            {k: v.to(DEVICE) for k, v in best_weights.items()}
-                        )
+                        if best_weights is not None:
+                            self.model.load_state_dict(
+                                {k: v.to(DEVICE) for k, v in best_weights.items()}
+                            )
                         break
 
         if eval_set is not None and best_weights is not None:
@@ -211,7 +212,7 @@ class PyTorchTabularClassifier(BaseEstimator, ClassifierMixin):
         dataset = TensorDataset(torch.tensor(X_arr))
         loader = DataLoader(dataset, batch_size=self.batch_size, shuffle=False)
 
-        probs = []
+        probs: List[Any] = []
         with torch.no_grad():
             for (batch_X,) in loader:
                 batch_X = batch_X.to(DEVICE)
@@ -219,8 +220,8 @@ class PyTorchTabularClassifier(BaseEstimator, ClassifierMixin):
                 p = torch.sigmoid(logits).cpu().numpy()
                 probs.extend(p)
 
-        probs = np.array(probs)
-        return np.column_stack([1 - probs, probs])
+        probs_arr = np.array(probs)
+        return np.column_stack([1 - probs_arr, probs_arr])
 
     def predict(self, X: np.ndarray) -> np.ndarray:
         prob = self.predict_proba(X)[:, 1]
@@ -338,7 +339,7 @@ def run_tuning(
 
         avg_latency = np.mean(latencies)
 
-        return pr_auc, avg_latency
+        return float(pr_auc), float(avg_latency)
 
     n_trials = config.get("models.optuna.n_trials", 15)
     study = optuna.create_study(
