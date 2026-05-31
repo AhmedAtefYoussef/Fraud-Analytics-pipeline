@@ -45,7 +45,7 @@ jobs:
       - name: Static Type Checking (MyPy)
         run: |
           # run mypy ignore missing imports to prevent failure on untyped external packages
-          mypy src/ --ignore-missing-imports
+          mypy src/ --ignore-missing-imports --explicit-package-bases
 
       - name: Run Unit Tests (PyTest)
         run: |
